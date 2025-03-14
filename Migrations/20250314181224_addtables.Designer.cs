@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Reservation.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250314161011_addTables")]
-    partial class addTables
+    [Migration("20250314181224_addtables")]
+    partial class addtables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
