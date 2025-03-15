@@ -1,0 +1,58 @@
+﻿@model List<Reservations>
+
+<h2>Mes Réservations</h2>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+@if (Model != null && Model.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Numéro</th>
+                <th>Départ</th>
+                <th>Destination</th>
+                <th>Date Réservation</th>
+                <th>État</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var reservation in Model)
+            {
+                <tr>
+                    <td>@reservation.Id</td>
+                    <td>@reservation.Vol.Depart</td>
+                    <td>@reservation.Vol.Destination</td>
+                    <td>@reservation.DateReservation.ToString("dd/MM/yyyy")</td>
+                    <td>@reservation.Etat</td>
+                    <td>
+                        @if (reservation.Etat == EtatReservation.faite)
+                        {
+                            <form method="post" action="@Url.Action("UpdateEtat", "Reservations")">
+                                <input type="hidden" name="id" value="@reservation.Id" />
+
+                                <!-- Boutons pour confirmer ou annuler -->
+                                <button type="submit" class="btn btn-success" name="nouvelEtat" value="@EtatReservation.Confirmee">Confirmer</button>
+                                <button type="submit" class="btn btn-danger" name="nouvelEtat" value="@EtatReservation.Annulee">Annuler</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <span class="badge @(reservation.Etat == EtatReservation.Confirmee ? "bg-success" : "bg-danger")">
+                                @reservation.Etat
+                            </span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Aucune réservation trouvée pour ce client.</p>
+}

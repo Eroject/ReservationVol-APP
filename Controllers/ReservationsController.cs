@@ -1,83 +1,66 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Collections.Generic;
+using Reservation.Models;
 
-namespace Reservation.Controllers
+public class ReservationsController : Controller
 {
-    public class ReservationsController : Controller
+    private readonly ApplicationDbContext _context;
+
+    public ReservationsController(ApplicationDbContext context)
     {
-        // GET: ReservationsController
-        public ActionResult Index()
+        _context = context;
+    }
+
+    // Recherche des réservations par ClientId
+    public ActionResult IndexByClient(int clientId)
+    {
+        var reservations = _context.Reservations
+            .Where(r => r.ClientId == clientId)
+            .Include(r => r.Vol) // Inclure le vol associé
+            .Include(r => r.Client) // Inclure le client associé
+            .ToList();
+
+        if (reservations == null || reservations.Count == 0)
         {
+            TempData["Error"] = "Aucune réservation trouvée pour  er client.";
             return View();
         }
 
-        // GET: ReservationsController/Details/5
-        public ActionResult Details(int id)
+        return View(reservations);
+    }
+
+    // Recherche des réservations par état
+    public ActionResult IndexByEtat(EtatReservation etat)
+    {
+        var reservations = _context.Reservations
+            .Where(r => r.Etat == etat)
+            .Include(r => r.Client) // Inclure le client
+            .Include(r => r.Vol) // Inclure le vol
+            .ToList();
+
+        if (reservations == null || reservations.Count == 0)
         {
+            TempData["Error"] = $"Aucune réservation trouvée avec l'état {etat}.";
             return View();
         }
 
-        // GET: ReservationsController/Create
-        public ActionResult Create()
+        return View(reservations);
+    }
+
+    [HttpPost]
+public ActionResult UpdateEtat(int id, EtatReservation nouvelEtat)
+    {
+        var reservation = _context.Reservations.Find(id);
+        if (reservation == null)
         {
-            return View();
+            return NotFound();
         }
 
-        // POST: ReservationsController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        reservation.Etat = nouvelEtat;
+        _context.SaveChanges();
 
-        // GET: ReservationsController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: ReservationsController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ReservationsController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: ReservationsController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        return RedirectToAction("IndexByClient", new { clientId = reservation.ClientId });
     }
 }

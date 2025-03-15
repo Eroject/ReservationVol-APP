@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Reservation.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250315133251_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -200,38 +203,6 @@ namespace Reservation.Migrations
                         new
                         {
                             Id = 4,
-                            ClientId = 4,
-                            DateReservation = new DateTime(2024, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Etat = 0,
-                            VolId = 4
-                        },
-                        new
-                        {
-                            Id = 5,
-                            ClientId = 4,
-                            DateReservation = new DateTime(2024, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Etat = 0,
-                            VolId = 3
-                        },
-                        new
-                        {
-                            Id = 6,
-                            ClientId = 4,
-                            DateReservation = new DateTime(2024, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Etat = 0,
-                            VolId = 2
-                        },
-                        new
-                        {
-                            Id = 7,
-                            ClientId = 4,
-                            DateReservation = new DateTime(2024, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Etat = 0,
-                            VolId = 1
-                        },
-                        new
-                        {
-                            Id = 8,
                             ClientId = 4,
                             DateReservation = new DateTime(2024, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Etat = 0,
