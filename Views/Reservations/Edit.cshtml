@@ -1,0 +1,44 @@
+﻿@model Reservations
+
+<h2>Modifier l'état de la réservation</h2>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+<form method="post">
+    <input type="hidden" name="id" value="@Model.Id" />
+
+    <div class="form-group">
+        <label>Client :</label>
+        <input type="text" class="form-control" value="@Model.Client.Nom @Model.Client.Prenom" disabled />
+    </div>
+
+    <div class="form-group">
+        <label>Vol :</label>
+        <input type="text" class="form-control" value="@Model.Vol.Destination" disabled />
+    </div>
+
+    <div class="form-group">
+        <label>État de la réservation :</label>
+        <select name="newEtat" class="form-control">
+            @foreach (var etat in Enum.GetValues(typeof(EtatReservation)))
+            {
+                <option value="@etat" selected="@(etat.Equals(Model.Etat) ? "selected" : null)">
+                    @etat
+                </option>
+            }
+        </select>
+    </div>
+
+    <br />
+
+    <button type="submit" class="btn btn-success">Enregistrer</button>
+    <a href="@Url.Action("IndexByClient", "Reservations", new { clientId = Model.ClientId })" class="btn btn-secondary">Annuler</a>
+</form>

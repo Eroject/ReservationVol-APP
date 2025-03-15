@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Reservation.Migrations
 {
     /// <inheritdoc />
-    public partial class addtables : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -86,6 +88,52 @@ namespace Reservation.Migrations
                         principalTable: "Vols",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Clients",
+                columns: new[] { "Id", "Age", "CIN", "Nom", "Prenom" },
+                values: new object[,]
+                {
+                    { 1, 30, "CIN1", "ClientNom1", "ClientPrenom1" },
+                    { 2, 32, "CIN2", "ClientNom2", "ClientPrenom2" },
+                    { 3, 28, "CIN3", "ClientNom3", "ClientPrenom3" },
+                    { 4, 45, "CIN4", "ClientNom4", "ClientPrenom4" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Gestionnaires",
+                columns: new[] { "Id", "AnneeRecrutement", "Code", "Nom" },
+                values: new object[,]
+                {
+                    { 1, 2018, "GEST123", "Ali" },
+                    { 2, 2020, "GEST456", "Nadia" },
+                    { 3, 2021, "GEST789", "Yassine" },
+                    { 4, 2019, "GEST999", "Omar" },
+                    { 5, 2022, "GEST222", "Sofia" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Vols",
+                columns: new[] { "Id", "DateArrivee", "Depart", "Destination", "NombrePlacesMax", "PlacesDisponibles", "Prix" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2024, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Casablanca", "Paris", 200, 50, 1500m },
+                    { 2, new DateTime(2024, 7, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Marrakech", "New York", 300, 100, 3500m },
+                    { 3, new DateTime(2024, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Rabat", "Dubai", 250, 150, 2500m },
+                    { 4, new DateTime(2024, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Casablanca", "Tokyo", 150, 80, 4500m },
+                    { 5, new DateTime(2024, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Marrakech", "London", 180, 60, 2000m }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Reservations",
+                columns: new[] { "Id", "ClientId", "DateReservation", "Etat", "VolId" },
+                values: new object[,]
+                {
+                    { 1, 1, new DateTime(2024, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1 },
+                    { 2, 2, new DateTime(2024, 5, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, 2 },
+                    { 3, 3, new DateTime(2024, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 3 },
+                    { 4, 4, new DateTime(2024, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, 4 }
                 });
 
             migrationBuilder.CreateIndex(

@@ -21,7 +21,7 @@ namespace Reservation.Models
     }
     public enum EtatReservation
     {
-        EnAttente,
+        faite,
         Confirmee,
         Annulee
     }
