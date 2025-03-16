@@ -1,0 +1,46 @@
+﻿@model Vol
+
+<h1>Suppression d'un vol</h1>
+<h1></h1>
+<h1></h1>
+
+<form method="post">
+    <div class="mb-3 row">
+        <label asp-for="Destination" class="col-form-label"></label>
+        <input asp-for="Destination" class="form-control" readonly />
+    </div>
+
+    <div class="mb-3 row">
+        <label asp-for="Depart" class="col-form-label"></label>
+        <input asp-for="Depart" class="form-control" readonly />
+    </div>
+
+    <div class="mb-3 row">
+        <label asp-for="DateArrivee" class="col-form-label"></label>
+        <input asp-for="DateArrivee" class="form-control" readonly />
+    </div>
+
+    <div class="mb-3 row">
+        <label asp-for="Prix" class="col-form-label"></label>
+        <textarea asp-for="Prix" class="form-control" readonly></textarea>
+    </div>
+
+    <div class="mb-3 row">
+        <label asp-for="NombrePlacesMax" class="col-form-label"></label>
+        <textarea asp-for="NombrePlacesMax" class="form-control" readonly></textarea>
+    </div>
+
+    <div class="mb-3 row">
+        <label asp-for="PlacesDisponibles" class="col-form-label"></label>
+        <textarea asp-for="PlacesDisponibles" class="form-control" readonly></textarea>
+    </div>
+
+
+
+    <button type="submit" class="btn btn-danger form-control">Supprimer Vol</button>
+    <a asp-controller="Vol" asp-action="Index" class="btn btn-outline-secondary form-control">Retour à la liste</a>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

@@ -1,0 +1,42 @@
+﻿@model Client
+<h1>Modification d'un client</h1>
+<h1></h1>
+<h1></h1>
+
+<form method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="mb-3">
+        <label asp-for="Nom"></label>
+        <input asp-for="Nom" class="form-control" />
+        <span asp-validation-for="Nom" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Prenom"></label>
+        <input asp-for="Prenom" class="form-control" />
+        <span asp-validation-for="Prenom" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CIN"></label>
+        <input asp-for="CIN" class="form-control" />
+        <span asp-validation-for="CIN" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Age"></label>
+        <textarea asp-for="Age" class="form-control"></textarea>
+        <span asp-validation-for="Age" class="text-danger"></span>
+    </div>
+
+
+
+    <button type="submit" class="btn btn-primary form-control">Modifier client</button>
+    <a asp-controller="Client" asp-action="Index" class="btn btn-outline-secondary form-control">Retour à la liste</a>
+</form>
+
+@section Scripts {
+@* Validation côté client *@
+    <partial name="_ValidationScriptsPartial" />
+}

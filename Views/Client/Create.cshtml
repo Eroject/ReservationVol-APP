@@ -1,0 +1,55 @@
+﻿@model Client
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+
+<h1>Création d'un client </h1>
+<h1></h1>
+<h1></h1>
+
+<form method="post" enctype="multipart/form-data" asp-action="Create" asp-controller="Client">
+
+    <div class="mb-3 raw">
+        <label asp-for="Nom"></label>
+        <input asp-for="Nom" class="form-control" />
+    </div>
+    <div class="mb-3 raw">
+        <label asp-for="Prenom"></label>
+        <input asp-for="Prenom" class="form-control" />
+    </div>
+    <div class="mb-3 raw">
+        <label asp-for="CIN"></label>
+        <input asp-for="CIN" class="form-control" />
+    </div>
+
+    <div class="mb-3 raw">
+        <label asp-for="Age"></label>
+        <input asp-for="Age" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Envoyer</button>
+    <a asp-controller="Client" asp-action="Index" class="btn btn-outline-secondary form-control">Retour à la liste</a>
+
+</form>
+
+<span asp-validation-for="Id" class="text-danger"></span>
+<span asp-validation-for="Nom" class="text-danger"></span>
+<span asp-validation-for="Prenom" class="text-danger"></span>
+<span asp-validation-for="CIN" class="text-danger"></span>
+<span asp-validation-for="Age" class="text-danger"></span>
+
+
+
+<div asp-validation-summary="All"></div>
+
+
+
+
+
+
+
+
+

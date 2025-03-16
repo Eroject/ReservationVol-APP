@@ -1,0 +1,36 @@
+﻿@model List<Client>
+
+<div>
+    <h2>Liste des Clients</h2>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>CIN</th>
+                <th>Age</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var obj in Model)
+            {
+                <tr>
+                    <td>@obj.Nom</td>
+                    <td>@obj.Prenom</td>
+                    <td>@obj.CIN</td>
+                    <td>@obj.Age</td>
+                    <td>
+                        <a asp-controller="Client" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary">Modifier le client</a>
+                        <a asp-controller="Client" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger">Supprimer le client</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <a asp-controller="Client" asp-action="Create" class="btn btn-success">Créer un nouveau client</a>
+</div>
+

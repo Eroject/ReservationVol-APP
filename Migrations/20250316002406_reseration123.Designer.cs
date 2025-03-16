@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Reservation.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250316002406_reseration123")]
+    partial class reseration123
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -264,8 +267,8 @@ namespace Reservation.Migrations
                     b.Property<int>("PlacesDisponibles")
                         .HasColumnType("int");
 
-                    b.Property<int>("Prix")
-                        .HasColumnType("int");
+                    b.Property<decimal>("Prix")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -280,7 +283,7 @@ namespace Reservation.Migrations
                             Destination = "Paris",
                             NombrePlacesMax = 200,
                             PlacesDisponibles = 50,
-                            Prix = 1500
+                            Prix = 1500m
                         },
                         new
                         {
@@ -290,7 +293,7 @@ namespace Reservation.Migrations
                             Destination = "New York",
                             NombrePlacesMax = 300,
                             PlacesDisponibles = 100,
-                            Prix = 3500
+                            Prix = 3500m
                         },
                         new
                         {
@@ -300,7 +303,7 @@ namespace Reservation.Migrations
                             Destination = "Dubai",
                             NombrePlacesMax = 250,
                             PlacesDisponibles = 150,
-                            Prix = 2500
+                            Prix = 2500m
                         },
                         new
                         {
@@ -310,7 +313,7 @@ namespace Reservation.Migrations
                             Destination = "Tokyo",
                             NombrePlacesMax = 150,
                             PlacesDisponibles = 80,
-                            Prix = 4500
+                            Prix = 4500m
                         },
                         new
                         {
@@ -320,7 +323,7 @@ namespace Reservation.Migrations
                             Destination = "London",
                             NombrePlacesMax = 180,
                             PlacesDisponibles = 60,
-                            Prix = 2000
+                            Prix = 2000m
                         });
                 });
 
