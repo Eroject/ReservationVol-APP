@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.UI.Services;
-namespace EcomApp.Utility
+namespace Reservation.Utility
 {
     public class EmailSender : IEmailSender
     {
