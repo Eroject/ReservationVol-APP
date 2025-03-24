@@ -9,13 +9,13 @@ using Microsoft.AspNetCore.Identity;
 namespace Reservation.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class ClientController : Controller
+    public class GestionnaireController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ApplicationDbContext _db;
 
 
-        public ClientController(ApplicationDbContext db , UserManager<IdentityUser> userManager)
+        public GestionnaireController(ApplicationDbContext db, UserManager<IdentityUser> userManager)
         {
             _db = db;
             _userManager = userManager;
@@ -24,8 +24,8 @@ namespace Reservation.Controllers
 
         public IActionResult Index()
         {
-            List<Client> clientList = _db.Clients.ToList();
-            return View(clientList);
+            List<Gestionnaire> gestionnaireList = _db.Gestionnaires.ToList();
+            return View(gestionnaireList);
         }
 
 
@@ -37,7 +37,7 @@ namespace Reservation.Controllers
 
 
         [HttpPost]
-        public IActionResult Create(Client obj)
+        public IActionResult Create(Gestionnaire obj)
         {
             if (obj.Nom == "test")
             {
@@ -46,7 +46,7 @@ namespace Reservation.Controllers
 
             if (ModelState.IsValid)
             {
-                _db.Clients.Add(obj);
+                _db.Gestionnaires.Add(obj);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -54,14 +54,14 @@ namespace Reservation.Controllers
             return View(obj);
         }
 
-        public IActionResult Edit(string? id)
+        public IActionResult Edit(int? id)
         {
-            if (id == null || id == "0")
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
 
-            Client? obj = _db.Clients.FirstOrDefault(c => c.Id == id);
+            Gestionnaire? obj = _db.Gestionnaires.FirstOrDefault(c => c.Id == id);
             if (obj == null)
             {
                 return NotFound();
@@ -71,11 +71,11 @@ namespace Reservation.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Client obj)
+        public IActionResult Edit(Gestionnaire obj)
         {
             if (ModelState.IsValid)
             {
-                _db.Clients.Update(obj);
+                _db.Gestionnaires.Update(obj);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -83,14 +83,14 @@ namespace Reservation.Controllers
             return View("Edit", obj);
         }
 
-        public IActionResult Delete(string? id)
+        public IActionResult Delete(int? id)
         {
-            if (id == null || id == "0")
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
 
-            Client? obj = _db.Clients.FirstOrDefault(c => c.Id == id);
+            Gestionnaire? obj = _db.Gestionnaires.FirstOrDefault(c => c.Id == id);
             if (obj == null)
             {
                 return NotFound();
@@ -100,15 +100,15 @@ namespace Reservation.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        public IActionResult DeletePost(string? id)
+        public IActionResult DeletePost(int? id)
         {
-            Client? obj = _db.Clients.FirstOrDefault(c => c.Id == id);
+            Gestionnaire? obj = _db.Gestionnaires.FirstOrDefault(c => c.Id == id);
             if (obj == null)
             {
                 return NotFound();
             }
 
-            _db.Clients.Remove(obj);
+            _db.Gestionnaires.Remove(obj);
             _db.SaveChanges();
             return RedirectToAction("Index");
         }

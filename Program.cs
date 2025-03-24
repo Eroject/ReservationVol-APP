@@ -2,7 +2,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Reservation.Utility;
 using Microsoft.AspNetCore.Identity.UI.Services;
-using EcomApp.Utility;
 
 
 var builder = WebApplication.CreateBuilder(args);

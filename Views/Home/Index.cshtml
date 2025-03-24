@@ -266,36 +266,8 @@
                 return;
             }
 
-            // Simulation du chargement
-            isLoading = true;
-            const searchButton = document.getElementById('searchButton');
-            searchButton.disabled = true;
-            searchButton.innerHTML = `
-                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                Recherche en cours...
-            `;
-
-            // Création du formulaire de soumission
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = '/Vol/RechercherVols';
-
-            // Ajout des champs
-            const addField = (name, value) => {
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = name;
-                input.value = value;
-                form.appendChild(input);
-            };
-
-            addField('Origine', searchData.origine);
-            addField('Destination', searchData.destination);
-            addField('DateDepart', searchData.dateDepart);
-
-            // Soumission
-            document.body.appendChild(form);
-            form.submit();
-        }
-    </script>
-</body>
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p>User Id : @ViewData["UserID"]</p>
+</div>

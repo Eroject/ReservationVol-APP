@@ -1,4 +1,7 @@
-﻿@model List<Client>
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+
+@model List<Client>
 
 <div>
     <h2>Liste des Clients</h2>
@@ -9,6 +12,8 @@
                 <th>Prenom</th>
                 <th>CIN</th>
                 <th>Age</th>
+                <th>Email</th>
+                <th>Password (haché) </th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -20,9 +25,11 @@
                     <td>@obj.Prenom</td>
                     <td>@obj.CIN</td>
                     <td>@obj.Age</td>
+                    <td>@obj.Email</td>
+                    <td>@obj.PasswordHash</td>
                     <td>
-                        <a asp-controller="Client" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary">Modifier le client</a>
-                        <a asp-controller="Client" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger">Supprimer le client</a>
+                        <a asp-controller="Client" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary">Modifier</a>
+                        <a asp-controller="Client" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger">Supprimer</a>
                     </td>
                 </tr>
             }
@@ -33,4 +40,3 @@
 <div>
     <a asp-controller="Client" asp-action="Create" class="btn btn-success">Créer un nouveau client</a>
 </div>
-

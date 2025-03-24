@@ -3,25 +3,30 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 <ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-        <li class="nav-item">
-            <a id="manage" class="nav-link " style="color: white;" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Salut @UserManager.GetUserName(User)!</a>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        var user = await UserManager.GetUserAsync(User);
+        var nom = user?.GetType().GetProperty("Nom")?.GetValue(user, null)?.ToString();
+        var prenom = user?.GetType().GetProperty("Prenom")?.GetValue(user, null)?.ToString();
 
+        <li class="nav-item">
+            <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+                Hello @(string.IsNullOrEmpty(prenom) || string.IsNullOrEmpty(nom) ? UserManager.GetUserName(User) : $"{prenom} {nom}")!
+            </a>
         </li>
-    <li class="nav-item">
-        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button id="logout" type="submit" style="color: white;" class="nav-link btn btn rounded-pill px-4">Se Deconnecter</button>
-        </form>
-    </li>
-}
-else
+        <li class="nav-item">
+            <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">Logout</button>
+            </form>
+        </li>
+    }
+    else
     {
         <li class="nav-item">
-            <a class="nav-link rounded-pill px-4" style="color: white;" id="Register" asp-area="Identity" asp-page="/Account/Register">S'inscrire</a>
-    </li>
-    <li class="nav-item">
-            <a class="nav-link rounded-pill px-4" style="color: white;" id="Login" asp-area="Identity" asp-page="/Account/Login">Se connecter</a>
-    </li>
-}
+            <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+    }
 </ul>

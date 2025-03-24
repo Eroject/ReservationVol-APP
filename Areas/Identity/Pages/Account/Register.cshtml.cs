@@ -77,10 +77,6 @@ namespace Reservation.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
             [Required]
             [Display(Name = "Nom")]
             public string Nom { get; set; }
@@ -94,25 +90,34 @@ namespace Reservation.Areas.Identity.Pages.Account
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "Le {0} doit contenir entre {2} et {1} caractères.", MinimumLength = 6)]
             [DataType(DataType.Password)]
-            [Display(Name = "Password")]
+            [Display(Name = "Mot de passe")]
             public string Password { get; set; }
 
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Confirmer le mot de passe")]
+            [Compare("Password", ErrorMessage = "Les mots de passe ne correspondent pas.")]
             public string ConfirmPassword { get; set; }
 
+            // Champs spécifiques à Client
+            [Required]
+            [Display(Name = "Nom")]
+            public string Nom { get; set; }
+
+            [Required]
+            [Display(Name = "Prénom")]
+            public string Prenom { get; set; }
+
+            [Required]
+            [Display(Name = "CIN")]
+            public string CIN { get; set; }
+
+            [Required]
+            [Display(Name = "Âge")]
+            [Range(18, 100, ErrorMessage = "L'âge doit être compris entre 18 et 100.")]
+            public int Age { get; set; }
             public string? Role { get; set; }
             [ValidateNever]
             public IEnumerable<SelectListItem> RoleList { get; set; }
@@ -121,6 +126,10 @@ namespace Reservation.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                Response.Redirect("/");
+            }
             if (!_roleManager.RoleExistsAsync(SD.Role_fournisseur).GetAwaiter().GetResult())
             {
                 _roleManager.CreateAsync(new IdentityRole(SD.Role_fournisseur)).GetAwaiter().GetResult();
@@ -146,18 +155,19 @@ namespace Reservation.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
                 var client = user as Client;
 
-                client.Nom = Input.Nom;
-                client.Prenom = Input.Prenom;
+                // Ajout des champs spécifiques au Client
+                user.Nom = Input.Nom;
+                user.Prenom = Input.Prenom;
+                user.CIN = Input.CIN;
+                user.Age = Input.Age;
 
-                // Remplir UserName avec Nom + Prenom
-                string userFullName = $"{Input.Prenom}";
-                await _userStore.SetUserNameAsync(client, Input.Email, CancellationToken.None);
-
+                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
@@ -196,15 +206,17 @@ namespace Reservation.Areas.Identity.Pages.Account
                         return LocalRedirect(returnUrl);
                     }
                 }
+
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
 
-            // If we got this far, something failed, redisplay form
+            // Si quelque chose échoue, on redisplay le formulaire
             return Page();
         }
+
 
         private Client CreateUser()
         {
