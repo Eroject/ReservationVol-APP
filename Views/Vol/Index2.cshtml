@@ -1,0 +1,32 @@
+﻿@model List<Vol>
+
+<div>
+    <h2>Liste des Vols</h2>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Destination</th>
+                <th>Depart</th>
+                <th>DateArrivee</th>
+                <th>Prix</th>
+                <th>NombrePlacesMax</th>
+                <th>PlacesDisponibles</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var obj in Model)
+            {
+                <tr>
+                    <td>@obj.Destination</td>
+                    <td>@obj.Depart</td>
+                    <td>@obj.DateArrivee</td>
+                    <td>@obj.Prix MAD</td>
+                    <td>@obj.NombrePlacesMax</td>
+                    <td>@obj.PlacesDisponibles</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+

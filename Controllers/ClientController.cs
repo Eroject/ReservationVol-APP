@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Reservation.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ClientController : Controller
     {
         private readonly ApplicationDbContext _db;
@@ -47,9 +48,9 @@ namespace Reservation.Controllers
             return View(obj);
         }
 
-        public IActionResult Edit(int? id)
+        public IActionResult Edit(string? id)
         {
-            if (id == null || id == 0)
+            if (id == null || id == "0")
             {
                 return NotFound();
             }
@@ -76,9 +77,9 @@ namespace Reservation.Controllers
             return View("Edit", obj);
         }
 
-        public IActionResult Delete(int? id)
+        public IActionResult Delete(string? id)
         {
-            if (id == null || id == 0)
+            if (id == null || id == "0")
             {
                 return NotFound();
             }
@@ -93,7 +94,7 @@ namespace Reservation.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        public IActionResult DeletePost(int? id)
+        public IActionResult DeletePost(string? id)
         {
             Client? obj = _db.Clients.FirstOrDefault(c => c.Id == id);
             if (obj == null)

@@ -3,25 +3,42 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
+
+
+
 namespace Reservation.Controllers
+
+
 {
+    
     public class VolController : Controller
     {
         private readonly ApplicationDbContext _db;
 
+        
         public VolController(ApplicationDbContext db)
         {
             _db = db;
         }
 
 
-        public IActionResult Index()
+
+        [Authorize (Roles = "Admin")]
+        public IActionResult Index1()
         {
             List<Vol> volList = _db.Vols.ToList();
             return View(volList);
         }
 
 
+        [Authorize(Roles = "Client")]
+        public IActionResult Index2()
+        {
+            List<Vol> volList = _db.Vols.ToList();
+            return View(volList);
+        }
+
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -29,7 +46,7 @@ namespace Reservation.Controllers
 
 
 
-        [HttpPost]
+        [HttpPost]      
         public IActionResult Create(Vol obj)
         {
             if (obj.Depart== "test1")
@@ -41,7 +58,7 @@ namespace Reservation.Controllers
             {
                 _db.Vols.Add(obj);
                 _db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index1");
             }
 
             return View(obj);
@@ -70,7 +87,7 @@ namespace Reservation.Controllers
             {
                 _db.Vols.Update(obj);
                 _db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index1");
             }
 
             return View("Edit", obj);
@@ -103,7 +120,7 @@ namespace Reservation.Controllers
 
             _db.Vols.Remove(obj);
             _db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index1");
         }
     }
 }
