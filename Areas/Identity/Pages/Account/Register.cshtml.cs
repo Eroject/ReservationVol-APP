@@ -82,6 +82,14 @@ namespace Reservation.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
+            [Display(Name = "Nom")]
+            public string Nom { get; set; }
+
+            [Required]
+            [Display(Name = "Prénom")]
+            public string Prenom { get; set; }
+
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
@@ -141,8 +149,15 @@ namespace Reservation.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
+                var client = user as Client;
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                client.Nom = Input.Nom;
+                client.Prenom = Input.Prenom;
+
+                // Remplir UserName avec Nom + Prenom
+                string userFullName = $"{Input.Prenom}";
+                await _userStore.SetUserNameAsync(client, Input.Email, CancellationToken.None);
+
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
@@ -195,6 +210,7 @@ namespace Reservation.Areas.Identity.Pages.Account
         {
             try
             {
+
                 return Activator.CreateInstance<Client>();
             }
             catch

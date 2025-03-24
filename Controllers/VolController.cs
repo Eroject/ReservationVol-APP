@@ -122,5 +122,11 @@ namespace Reservation.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index1");
         }
+        public ActionResult Index()
+        {
+            var vols = _db.Vols.ToList();
+            return View(vols);
+        }
     }
+
 }

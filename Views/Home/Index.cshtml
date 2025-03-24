@@ -1,8 +1,301 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿
+<body>
+    <div id="app">
+        <!-- Offcanvas pour le profil -->
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="profileOffcanvas">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title">Mon compte</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <button class="btn btn-primary w-100 mb-2">Se connecter</button>
+                <button class="btn btn-outline-primary w-100">S'inscrire</button>
+            </div>
+        </div>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+        <!-- Offcanvas pour le menu mobile -->
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title">Menu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <form class="mb-4">
+                    <input type="search" class="form-control mb-2" placeholder="Rechercher">
+                    <button class="btn btn-outline-primary w-100">Rechercher</button>
+                </form>
+                <div class="d-flex flex-column mb-4">
+                    <a href="#" class="nav-link" data-bs-dismiss="offcanvas">RÉSERVATION</a>
+                    <a href="#" class="nav-link" data-bs-dismiss="offcanvas">DESTINATIONS</a>
+                    <a href="#" class="nav-link" data-bs-dismiss="offcanvas">EXPÉRIENCE VOYAGE</a>
+                    <a href="#" class="nav-link" data-bs-dismiss="offcanvas">INFORMATION</a>
+                    <a href="#" class="nav-link" data-bs-dismiss="offcanvas">FIDÉLITÉ SAFAR FLYER</a>
+                </div>
+                <button class="btn btn-primary w-100 mb-2" data-bs-dismiss="offcanvas">Se connecter</button>
+                <button class="btn btn-outline-primary w-100" data-bs-dismiss="offcanvas">S'inscrire</button>
+            </div>
+        </div>
+    </div>
+    <div id="app">
+        <!-- Conteneur principal pour le carousel et l'image r -->
+        <div style="position: relative;">
+            <!-- Carousel -->
+            <div id="mainCarousel" class="carousel slide" data-bs-ride="carousel" style="height: 600px;">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#mainCarousel" data-bs-slide-to="2"></button>
+                </div>
+
+                <div class="carousel-inner">
+                    <!-- Premier slide - change après 1 seconde -->
+                    <div class="carousel-item active" data-bs-interval="2000">
+                        <img src="./assets/t.svg" class="d-block w-100" alt="First slide" style="height: 600px; object-fit: cover;">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h3>First slide label</h3>
+                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        </div>
+                    </div>
+
+                    <!-- Deuxième slide - change après 0.5 seconde -->
+                    <div class="carousel-item" data-bs-interval="2000">
+                        <img src="./assets/t.svg" class="d-block w-100" alt="Second slide" style="height: 600px; object-fit: cover;">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h3>Second slide label</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        </div>
+                    </div>
+
+                    <!-- Troisième slide - utilise l'intervalle par défaut (3000ms) -->
+                    <div class="carousel-item">
+                        <img src="./assets/t.svg" class="d-block w-100" alt="Third slide" style="height: 600px; object-fit: cover;">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h3>Third slide label</h3>
+                            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+            <!-- Image r -->
+            <div style="position: relative; z-index: 1;">
+                <img src="./assets/react.svg" alt="r" style="width: 100%; height: 600px;">
+            </div>
+
+            <!-- Carte unique positionnée sur la div contenant l'image r -->
+            <div style="
+                position: absolute;
+                top: 400px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 2;
+                width: 100%;
+                max-width: 800px;
+            ">
+                <div style="
+                    background-color: rgba(255, 255, 255, 0.95);
+                    border-radius: 15px;
+                    padding: 2rem;
+                    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+                ">
+                    <h2 class="text-center mb-4 display-5 fw-bold">
+                        UNE NOUVELLE DESTINATION
+                        <br>
+                        S'OUVRE À VOUS
+                    </h2>
+
+                    <ul class="nav nav-pills mb-4 justify-content-center" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="reservation-tab" data-bs-toggle="pill" data-bs-target="#reservation" type="button" role="tab">RÉSERVATION</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="mes-voyages-tab" data-bs-toggle="pill" data-bs-target="#mes-voyages" type="button" role="tab">MES VOYAGES</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="check-in-tab" data-bs-toggle="pill" data-bs-target="#check-in" type="button" role="tab">CHECK IN</button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="reservation" role="tabpanel">
+                            <form class="mt-4" id="searchForm">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="origin" class="form-label">Origine</label>
+                                        <input type="text" class="form-control rounded-pill border-2 py-3" id="origin"
+                                               placeholder="Ex: Paris, New York, Tokyo" name="origine" required>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="destination" class="form-label">Destination</label>
+                                        <input type="text" class="form-control rounded-pill border-2 py-3" id="destination"
+                                               placeholder="Ex: Londres, Dubai, Sydney" name="destination" required>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="dateDepart" class="form-label">Date de départ</label>
+                                        <input type="date" class="form-control rounded-pill border-2 py-3" id="dateDepart"
+                                               name="dateDepart" required>
+                                    </div>
+
+                                    <div class="col-md-6 d-flex align-items-end">
+                                        <button type="submit" class="btn btn-primary rounded-pill py-3 w-100"
+                                                style="background-color: #0d6efd; border-color: #0d6efd;" id="searchButton">
+                                            RECHERCHER
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <div id="errorAlert" class="alert alert-danger mt-3 d-none" role="alert"></div>
+                        </div>
+
+                        <div class="tab-pane fade" id="mes-voyages" role="tabpanel">
+                            <div class="text-center py-4">
+                                <h4>Contenu des mes voyages</h4>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="check-in" role="tabpanel">
+                            <div class="text-center py-4">
+                                <h4>Contenu du check-in</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tableau TripsTable avec z-index plus élevé -->
+        <div style="position: relative; z-index: 2; margin-top: 1000px;">
+            <div>ui</div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Gestion responsive
+        function checkMobile() {
+            const navbar = document.getElementById('navbar');
+            if (window.innerWidth < 992) {
+                navbar.classList.add('navbar-dark', 'bg-primary');
+                navbar.classList.remove('navbar-light', 'bg-white');
+            } else {
+                navbar.classList.remove('navbar-dark', 'bg-primary');
+                navbar.classList.add('navbar-light', 'bg-white');
+            }
+        }
+
+        // Initialisation
+        window.addEventListener('DOMContentLoaded', () => {
+            checkMobile();
+            window.addEventListener('resize', checkMobile);
+        });
+
+        function showProfile() {
+            const profileOffcanvas = new bootstrap.Offcanvas(document.getElementById('profileOffcanvas'));
+            profileOffcanvas.show();
+        }
+    </script>
+    <script>
+        // Initialisation des tabs
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabElms = document.querySelectorAll('button[data-bs-toggle="pill"]');
+            tabElms.forEach(tabEl => {
+                tabEl.addEventListener('click', function(event) {
+                    const tabTrigger = new bootstrap.Tab(this);
+                    tabTrigger.show();
+                });
+            });
+        });
+    </script>
+    <script>
+        // Gestion des états
+        const searchData = {
+            origine: "",
+            destination: "",
+            dateDepart: ""
+        };
+
+        let isLoading = false;
+        let error = null;
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialisation de la date minimale
+            const dateInput = document.getElementById('dateDepart');
+            dateInput.min = new Date().toISOString().split('T')[0];
+
+            // Gestion des changements d'input
+            document.getElementById('origin').addEventListener('input', function(e) {
+                searchData.origine = e.target.value;
+            });
+
+            document.getElementById('destination').addEventListener('input', function(e) {
+                searchData.destination = e.target.value;
+            });
+
+            document.getElementById('dateDepart').addEventListener('input', function(e) {
+                searchData.dateDepart = e.target.value;
+            });
+
+            // Gestion de la soumission du formulaire
+            document.getElementById('searchForm').addEventListener('submit', handleSearch);
+        });
+
+        function handleSearch(e) {
+            e.preventDefault();
+            const errorAlert = document.getElementById('errorAlert');
+            errorAlert.classList.add('d-none');
+
+            // Validation
+            if (!searchData.origine || !searchData.destination || !searchData.dateDepart) {
+                error = "Veuillez remplir tous les champs";
+                errorAlert.textContent = error;
+                errorAlert.classList.remove('d-none');
+                return;
+            }
+
+            // Simulation du chargement
+            isLoading = true;
+            const searchButton = document.getElementById('searchButton');
+            searchButton.disabled = true;
+            searchButton.innerHTML = `
+                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                Recherche en cours...
+            `;
+
+            // Création du formulaire de soumission
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/Vol/RechercherVols';
+
+            // Ajout des champs
+            const addField = (name, value) => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = name;
+                input.value = value;
+                form.appendChild(input);
+            };
+
+            addField('Origine', searchData.origine);
+            addField('Destination', searchData.destination);
+            addField('DateDepart', searchData.dateDepart);
+
+            // Soumission
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
+</body>

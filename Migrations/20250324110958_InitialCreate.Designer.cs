@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Reservation.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250324013232_vl")]
-    partial class vl
+    [Migration("20250324110958_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

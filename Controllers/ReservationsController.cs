@@ -4,21 +4,23 @@ using System.Linq;
 using System.Collections.Generic;
 using Reservation.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 [Authorize(Roles = "Client")]
 public class ReservationsController : Controller
 {
-    private readonly ApplicationDbContext _context;
+    private readonly ApplicationDbContext _db;
 
-    public ReservationsController(ApplicationDbContext context)
+    public ReservationsController(ApplicationDbContext db)
     {
-        _context = context;
+        _db = db;
     }
+
 
     // Recherche des réservations par ClientId
     public ActionResult IndexByClient(string clientId) // Correction : ClientId est string
     {
-        var reservations = _context.Reservations
+        var reservations = _db.Reservations
             .Where(r => r.ClientId == clientId)
             .Include(r => r.Vol) // Inclure le vol associé
             .Include(r => r.Client) // Inclure le client associé
@@ -36,7 +38,7 @@ public class ReservationsController : Controller
     // Recherche des réservations par état
     public ActionResult IndexByEtat(EtatReservation etat)
     {
-        var reservations = _context.Reservations
+        var reservations = _db.Reservations
             .Where(r => r.Etat == etat)
             .Include(r => r.Client) // Inclure le client
             .Include(r => r.Vol) // Inclure le vol
@@ -54,15 +56,53 @@ public class ReservationsController : Controller
     [HttpPost]
     public ActionResult UpdateEtat(int id, EtatReservation nouvelEtat)
     {
-        var reservation = _context.Reservations.Find(id);
+        var reservation = _db.Reservations.Find(id);
         if (reservation == null)
         {
             return NotFound();
         }
 
         reservation.Etat = nouvelEtat;
-        _context.SaveChanges();
+        _db.SaveChanges();
 
         return RedirectToAction("IndexByClient", new { clientId = reservation.ClientId });
     }
+
+    /*
+    
+    public ActionResult Reserver(int volId, string clientId)
+    {
+        var reservation = new Reservations
+        {
+            ClientId = clientId,
+            VolId = volId,
+            DateReservation = DateTime.Now,
+            Etat = EtatReservation.faite
+        };
+
+        _db.Reservations.Add(reservation);
+        _db.SaveChanges();
+
+        TempData["Message"] = "Réservation effectuée avec succès!";
+        return RedirectToAction("Index", "Vol");
+    }*/
+    public ActionResult Reserver(int volId)
+    {
+        string clientId = "ad637f92-9836-45e2-bcc4-e20a73c8bc3c"; // Id du client fixe
+
+        var reservation = new Reservations
+        {
+            ClientId = clientId,
+            VolId = volId,
+            DateReservation = DateTime.Now,
+            Etat = EtatReservation.faite
+        };
+
+        _db.Reservations.Add(reservation);
+        _db.SaveChanges();
+
+        TempData["Message"] = "Réservation effectuée avec succès!";
+        return RedirectToAction("Index", "Vol");
+    }
 }
+
