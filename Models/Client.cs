@@ -10,4 +10,5 @@ public class Client : IdentityUser
     public int Age { get; set; }
 
     public virtual List<Reservations> Reservations { get; set; } = new();
+
 }

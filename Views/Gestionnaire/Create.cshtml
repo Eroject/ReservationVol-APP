@@ -1,0 +1,53 @@
+﻿@model Gestionnaire
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+
+<h1>Création d'un gestionnaire </h1>
+<h1></h1>
+<h1></h1>
+
+<form method="post" enctype="multipart/form-data" asp-action="Create" asp-controller="Gestionnaire">
+
+    <div class="mb-3 raw">
+        <label asp-for="Nom"></label>
+        <input asp-for="Nom" class="form-control" />
+    </div>
+    
+    <div class="mb-3 raw">
+        <label asp-for="Code"></label>
+        <input asp-for="Code" class="form-control" />
+    </div>
+
+    <div class="mb-3 raw">
+        <label asp-for="AnneeRecrutement"></label>
+        <input asp-for="AnneeRecrutement" class="form-control" />
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Envoyer</button>
+    <a asp-controller="Gestionnaire" asp-action="Index" class="btn btn-outline-secondary form-control">Retour à la liste</a>
+
+</form>
+
+<span asp-validation-for="Id" class="text-danger"></span>
+<span asp-validation-for="Nom" class="text-danger"></span>
+<span asp-validation-for="Code" class="text-danger"></span>
+<span asp-validation-for="AnneeRecrutement" class="text-danger"></span>
+
+
+
+
+<div asp-validation-summary="All"></div>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+
+@model List<Gestionnaire>
+
+<div>
+    <h2>Liste des gestionnaires</h2>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Nom</th>               
+                <th>Code</th>
+                <th>AnneeRecrutement</th>
+                <th>Actions</th>
+            </tr>
+        </thead>       
+        <tbody>
+            @foreach (var obj in Model)
+            {
+                <tr>
+                    <td>@obj.Nom</td>
+                    <td>@obj.Code</td>
+                    <td>@obj.AnneeRecrutement</td>  
+                    <td>
+                        <a asp-controller="Gestionnaire" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary">Modifier</a>
+                        <a asp-controller="Gestionnaire" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger">Supprimer</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <a asp-controller="Client" asp-action="Create" class="btn btn-success">Créer un nouveau client</a>
+</div>

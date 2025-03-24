@@ -1,0 +1,29 @@
+﻿@model Gestionnaire
+
+<h1>Suppression d'un gestionnaire</h1>
+<h1></h1>
+<h1></h1>
+
+<form method="post">
+    <div class="mb-3 row">
+        <label asp-for="Nom" class="col-form-label"></label>
+        <input asp-for="Nom" class="form-control" readonly />
+    </div>
+    <div class="mb-3 row">
+        <label asp-for="Code" class="col-form-label"></label>
+        <input asp-for="Code" class="form-control" readonly />
+    </div>
+
+    <div class="mb-3 row">
+        <label asp-for="AnneeRecrutement" class="col-form-label"></label>
+        <input asp-for="AnneeRecrutement" class="form-control" readonly />
+    </div>
+
+ 
+    <button type="submit" class="btn btn-danger form-control">Supprimer Gestionnaire</button>
+    <a asp-controller="Gestionnaire" asp-action="Index" class="btn btn-outline-secondary form-control">Retour à la liste</a>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

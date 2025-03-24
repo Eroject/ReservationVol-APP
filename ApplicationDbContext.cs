@@ -22,15 +22,7 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-
-        // Ajout des gestionnaires (aucune valeur dynamique)
-        modelBuilder.Entity<Gestionnaire>().HasData(
-            new Gestionnaire { Id = 1, Nom = "Ali", Code = "GEST123", AnneeRecrutement = 2018 },
-            new Gestionnaire { Id = 2, Nom = "Nadia", Code = "GEST456", AnneeRecrutement = 2020 },
-            new Gestionnaire { Id = 3, Nom = "Yassine", Code = "GEST789", AnneeRecrutement = 2021 },
-            new Gestionnaire { Id = 4, Nom = "Omar", Code = "GEST999", AnneeRecrutement = 2019 },
-            new Gestionnaire { Id = 5, Nom = "Sofia", Code = "GEST222", AnneeRecrutement = 2022 }
-        );
+      
 
         // Ajout des vols avec des dates fixes
         modelBuilder.Entity<Vol>().HasData(
