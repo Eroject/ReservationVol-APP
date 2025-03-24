@@ -3,11 +3,11 @@
 <h1></h1>
 <h1></h1>
 
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" asp-action="Edit" asp-controller="Vol">
     <input type="hidden" asp-for="Id" />
 
     <div class="mb-3">
-        <label asp-for="Destination"></label>
+        <label asp-for="Destination"></label>s
         <input asp-for="Destination" class="form-control" />
         <span asp-validation-for="Destination" class="text-danger"></span>
     </div>
@@ -42,8 +42,8 @@
         <span asp-validation-for="PlacesDisponibles" class="text-danger"></span>
     </div>
 
-    <button type="submit" class="btn btn-primary form-control">Modifier Vol</button>
-    <a asp-controller="Vol" asp-action="Index" class="btn btn-outline-secondary form-control">Retour à la liste</a>
+    <button type="submit" class="btn btn-primary">Modifier</button>
+    <a asp-controller="Vol" asp-action="Index1" class="btn btn-outline-secondary form-control">Retour à la liste</a>
 </form>
 
 @section Scripts {

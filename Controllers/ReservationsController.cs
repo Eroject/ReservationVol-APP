@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Collections.Generic;
 using Reservation.Models;
+using Microsoft.AspNetCore.Authorization;
 
+[Authorize(Roles = "Client")]
 public class ReservationsController : Controller
 {
     private readonly ApplicationDbContext _context;
@@ -14,7 +16,7 @@ public class ReservationsController : Controller
     }
 
     // Recherche des réservations par ClientId
-    public ActionResult IndexByClient(int clientId)
+    public ActionResult IndexByClient(string clientId) // Correction : ClientId est string
     {
         var reservations = _context.Reservations
             .Where(r => r.ClientId == clientId)
@@ -24,7 +26,7 @@ public class ReservationsController : Controller
 
         if (reservations == null || reservations.Count == 0)
         {
-            TempData["Error"] = "Aucune réservation trouvée pour  er client.";
+            TempData["Error"] = "Aucune réservation trouvée pour le client.";
             return View();
         }
 
@@ -50,7 +52,7 @@ public class ReservationsController : Controller
     }
 
     [HttpPost]
-public ActionResult UpdateEtat(int id, EtatReservation nouvelEtat)
+    public ActionResult UpdateEtat(int id, EtatReservation nouvelEtat)
     {
         var reservation = _context.Reservations.Find(id);
         if (reservation == null)
