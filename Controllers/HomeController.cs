@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Reservation.Models;
 
@@ -13,14 +14,18 @@ public class HomeController : Controller
     
     
     private readonly ILogger<HomeController> _logger;
+    private readonly UserManager<IdentityUser> _userManager;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger , UserManager<IdentityUser> userManager)
     {
         _logger = logger;
+        this._userManager = userManager;
     }
 
+   
     public IActionResult Index()
     {
+        ViewData["UserID"] = _userManager.GetUserId(this.User);
         return View();
     }
 
